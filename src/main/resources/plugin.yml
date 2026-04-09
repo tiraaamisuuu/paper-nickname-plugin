@@ -1,0 +1,16 @@
+name: NameMask
+version: ${version}
+main: dev.alfiecorthine.nickname.NicknamePlugin
+api-version: '1.21'
+authors: [alfiecorthine]
+description: Lets players change their visible name and tab-list name with /nickname.
+commands:
+  nickname:
+    description: Change your visible nickname.
+    usage: /<command> <name|reset>
+    aliases: [nick]
+    permission: namemask.nickname
+permissions:
+  namemask.nickname:
+    description: Allows a player to set their own nickname.
+    default: true
