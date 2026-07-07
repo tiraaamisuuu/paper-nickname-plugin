@@ -1,4 +1,4 @@
-# NameMask
+# paper-nickname-plugin
 
 A Paper 1.21.11 plugin that lets players rename themselves with `/nickname <name>` and reset with `/nickname reset`.
 
