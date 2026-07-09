@@ -2,6 +2,10 @@
 
 A Paper 1.21.11 plugin that lets players rename themselves with `/nickname <name>` and reset with `/nickname reset`.
 
+## Downloads
+
+NameMask is available on [Modrinth](https://modrinth.com/plugin/name-mask). The Modrinth page is currently under review.
+
 ## Features
 
 - Updates the player's visible Paper profile name, which also updates the tab list.
