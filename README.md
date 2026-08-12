@@ -1,6 +1,6 @@
 # NameMask
 
-A lightweight Paper plugin that lets players set persistent nicknames using `/nickname <name>` and reset back to their original username with `/nickname reset`.
+An ultra lightweight Paper plugin that lets players set persistent nicknames using `/nickname <name>` and reset back to their original username with `/nickname reset`.
 
 ## Downloads
 
