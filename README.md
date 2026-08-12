@@ -1,38 +1,74 @@
-# paper-nickname-plugin
+# NameMask
 
-A Paper plugin that lets players rename themselves with `/nickname <name>` and reset with `/nickname reset`.
+A lightweight Paper plugin that lets players set persistent nicknames using `/nickname <name>` and reset back to their original username with `/nickname reset`.
 
 ## Downloads
 
-NameMask is available on [Modrinth](https://modrinth.com/plugin/name-mask). The Modrinth page is currently under review.
+NameMask is available on **Modrinth**:
+
+https://modrinth.com/plugin/name-mask
 
 ## Features
 
-- Updates the player's visible Paper profile name, which also updates the tab list.
-- Saves nicknames by UUID in `plugins/NameMask/nicknames.yml`.
-- Re-applies saved nicknames when players join again.
+* Change your visible in-game name with `/nickname <name>`.
+* Reset your nickname at any time with `/nickname reset`.
+* Updates the player's visible Paper profile name and tab-list name.
+* Stores nicknames by player UUID in `plugins/NameMask/nicknames.yml`.
+* Automatically re-applies saved nicknames when players rejoin.
+* Nicknames persist across server restarts.
+* Lightweight with no additional dependencies.
 
 ## Installation
 
-1. Download the latest jar from `build/libs/` or your GitHub/Modrinth release.
-2. Place it in your server's `plugins` folder.
-3. Start or restart your Paper 1.21.11 server.
+1. Download the latest NameMask `.jar` from [Modrinth](https://modrinth.com/plugin/name-mask) or the GitHub Releases page.
+2. Place the `.jar` in your Paper server's `plugins` folder.
+3. Start or restart the server.
+4. Use `/nickname <name>` in-game.
 
-## Build
+## Requirements
 
-This project targets Java 21.
+* **Paper**
+* **Java 21**
+
+Check the latest release for supported Minecraft versions.
+
+## Commands
+
+| Command            | Description                                |
+| ------------------ | ------------------------------------------ |
+| `/nickname <name>` | Sets your nickname.                        |
+| `/nickname reset`  | Restores your original Minecraft username. |
+
+## Permissions
+
+| Permission          | Description                                       |
+| ------------------- | ------------------------------------------------- |
+| `namemask.nickname` | Allows the player to set or reset their nickname. |
+
+## Building from Source
+
+NameMask uses Gradle and targets Java 21.
 
 ```bash
 ./gradlew build
 ```
 
-The built plugin jar will be in `build/libs/`.
+The compiled plugin `.jar` will be generated in:
 
-## Commands
+```text
+build/libs/
+```
 
-- `/nickname <name>`
-- `/nickname reset`
+## Data Storage
 
-## Permission
+Player nicknames are stored locally in:
 
-- `namemask.nickname`
+```text
+plugins/NameMask/nicknames.yml
+```
+
+Nicknames are associated with UUIDs rather than usernames, so they remain associated with the correct player if their Minecraft username changes.
+
+## License
+
+NameMask is licensed under the [MIT License](LICENSE).
