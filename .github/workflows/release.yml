@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Validate version tag
+        id: version
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid release tag: $GITHUB_REF_NAME" >&2
+            exit 1
+          fi
+          echo "value=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Build release jar
+        run: ./gradlew clean build -PpluginVersion=${{ steps.version.outputs.value }}
+
+      - name: Generate checksum
+        shell: bash
+        run: |
+          cd build/libs
+          sha256sum "NameMask-${{ steps.version.outputs.value }}.jar" > "NameMask-${{ steps.version.outputs.value }}.jar.sha256"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          RELEASE_FLAGS=()
+          if [[ "${{ steps.version.outputs.value }}" == *-* ]]; then
+            RELEASE_FLAGS+=(--prerelease)
+          fi
+          gh release create "$GITHUB_REF_NAME" \
+            "build/libs/NameMask-${{ steps.version.outputs.value }}.jar#NameMask ${{ steps.version.outputs.value }}" \
+            "build/libs/NameMask-${{ steps.version.outputs.value }}.jar.sha256#SHA-256 checksum" \
+            --verify-tag \
+            --generate-notes \
+            --title "NameMask ${{ steps.version.outputs.value }}" \
+            "${RELEASE_FLAGS[@]}"

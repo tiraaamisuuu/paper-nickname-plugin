@@ -38,8 +38,8 @@ public final class NicknamePlugin extends JavaPlugin implements Listener {
         Bukkit.getScheduler().runTask(this, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 UUID uniqueId = player.getUniqueId();
-                if (this.nicknameStore.getRealName(uniqueId).isEmpty()
-                    && this.nicknameStore.getNickname(uniqueId).isEmpty()) {
+                if (!this.nicknameStore.getRealName(uniqueId).isPresent()
+                    && !this.nicknameStore.getNickname(uniqueId).isPresent()) {
                     this.nicknameStore.setRealName(uniqueId, player.getName());
                 }
 
@@ -61,8 +61,8 @@ public final class NicknamePlugin extends JavaPlugin implements Listener {
 
         if (realName != null) {
             this.nicknameStore.setRealName(uniqueId, realName);
-        } else if (this.nicknameStore.getRealName(uniqueId).isEmpty()
-            && this.nicknameStore.getNickname(uniqueId).isEmpty()) {
+        } else if (!this.nicknameStore.getRealName(uniqueId).isPresent()
+            && !this.nicknameStore.getNickname(uniqueId).isPresent()) {
             this.nicknameStore.setRealName(uniqueId, player.getName());
         }
 

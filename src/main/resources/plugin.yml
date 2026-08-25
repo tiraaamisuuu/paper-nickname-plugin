@@ -1,9 +1,10 @@
 name: NameMask
 version: ${version}
 main: dev.alfiecorthine.nickname.NicknamePlugin
-api-version: '1.21'
+api-version: '1.16'
 authors: [alfiecorthine]
 description: Lets players change their visible name and tab-list name with /nickname.
+website: https://github.com/tiraaamisuuu/paper-nickname-plugin
 commands:
   nickname:
     description: Change your visible nickname.

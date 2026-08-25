@@ -1,0 +1,58 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Build
+        run: ./gradlew clean build
+
+      - name: Upload plugin jar
+        uses: actions/upload-artifact@v7
+        with:
+          name: NameMask-snapshot
+          path: build/libs/NameMask-*.jar
+          if-no-files-found: error
+
+  latest-paper-compatibility:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Compile against latest stable Paper API
+        run: >-
+          ./gradlew clean compileJava
+          -PpaperApiDependency=io.papermc.paper:paper-api:26.2.build.119-stable
+          -PbytecodeVersion=25

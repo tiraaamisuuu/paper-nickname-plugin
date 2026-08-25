@@ -4,7 +4,6 @@ import com.destroystokyo.paper.profile.PlayerProfile;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -40,8 +39,12 @@ public final class NicknameService {
 
     public boolean resetNickname(Player player) {
         UUID uniqueId = player.getUniqueId();
+        if (!this.nicknameStore.getNickname(uniqueId).isPresent()) {
+            return false;
+        }
+
         Optional<String> realName = this.nicknameStore.getRealName(uniqueId);
-        if (realName.isEmpty()) {
+        if (!realName.isPresent()) {
             return false;
         }
 
@@ -52,7 +55,7 @@ public final class NicknameService {
 
     public boolean applySavedNickname(Player player) {
         Optional<String> nickname = this.nicknameStore.getNickname(player.getUniqueId());
-        if (nickname.isEmpty()) {
+        if (!nickname.isPresent()) {
             return false;
         }
 
@@ -79,14 +82,34 @@ public final class NicknameService {
     }
 
     private void applyProfileName(Player player, String name) {
-        PlayerProfile profile = Bukkit.createProfileExact(player.getUniqueId(), name);
+        PlayerProfile profile = createExactProfile(player.getUniqueId(), name);
         profile.setProperties(player.getPlayerProfile().getProperties());
         player.setPlayerProfile(profile);
 
-        Component component = Component.text(name);
-        player.displayName(component);
-        player.playerListName(component);
+        player.setDisplayName(name);
+        player.setPlayerListName(name);
 
         this.plugin.getLogger().info("Applied nickname '" + name + "' to " + player.getUniqueId() + ".");
+    }
+
+    private PlayerProfile createExactProfile(UUID uniqueId, String name) {
+        try {
+            // Paper 1.18+ provides this API and does not replace the supplied
+            // nickname with a cached online-player profile.
+            return (PlayerProfile) Bukkit.class
+                .getMethod("createProfileExact", UUID.class, String.class)
+                .invoke(null, uniqueId, name);
+        } catch (NoSuchMethodException ignored) {
+            // Paper 1.16 and 1.17 require the older mutable-profile API.
+            PlayerProfile profile = Bukkit.createProfile(uniqueId, name);
+            try {
+                PlayerProfile.class.getMethod("setName", String.class).invoke(profile, name);
+                return profile;
+            } catch (ReflectiveOperationException exception) {
+                throw new IllegalStateException("Could not set the player profile name.", exception);
+            }
+        } catch (ReflectiveOperationException exception) {
+            throw new IllegalStateException("Could not create an exact player profile.", exception);
+        }
     }
 }
