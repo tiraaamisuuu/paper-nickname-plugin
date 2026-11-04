@@ -7,7 +7,7 @@ NameMask is a lightweight Paper plugin for persistent player nicknames. Players 
 
 ## Compatibility
 
-- Paper **1.16.1 and newer**, tested through Paper 26.2 build 119.
+- Paper **1.16.1 and newer**, tested through Paper 26.3 build 240.
 - One plugin jar works across all supported versions.
 - The jar targets Java 8 bytecode. Run the Java version required by your Paper server; see [Paper's version table](https://docs.papermc.io/paper/getting-started/#requirements).
 - Spigot and forks other than Paper are not supported.
@@ -74,7 +74,7 @@ Windows:
 The jar is written to `build/libs/`. To build an exact release version locally:
 
 ```bash
-./gradlew clean build -PpluginVersion=1.1.0
+./gradlew clean build -PpluginVersion=1.2.0
 ```
 
 See [RELEASING.md](RELEASING.md) for the tag-based release process and [CHANGELOG.md](CHANGELOG.md) for notable changes.

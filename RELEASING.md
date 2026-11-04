@@ -10,20 +10,20 @@ GitHub Actions builds and publishes a release whenever a semantic version tag be
 
 ## Publish the release
 
-For version `1.1.0`:
+For version `1.2.0`:
 
 ```bash
-git tag -a v1.1.0 -m "NameMask 1.1.0"
-git push origin v1.1.0
+git tag -a v1.2.0 -m "NameMask 1.2.0"
+git push origin v1.2.0
 ```
 
 The release workflow will:
 
 1. Validate the tag format.
-2. Build `NameMask-1.1.0.jar` with the version embedded in `plugin.yml`.
+2. Build `NameMask-1.2.0.jar` with the version embedded in `plugin.yml`.
 3. Generate a SHA-256 checksum.
 4. Create the GitHub release and attach both files.
 
-Pre-release tags such as `v1.2.0-beta.1` are accepted and automatically marked as pre-releases. After the workflow completes, verify the generated notes. Upload the same jar to Modrinth and select every tested Paper/Minecraft version.
+Pre-release tags such as `v1.3.0-beta.1` are accepted and automatically marked as pre-releases. After the workflow completes, verify the generated notes. Upload the same jar to Modrinth and select every tested Paper/Minecraft version.
 
 If a release workflow fails, fix the cause before re-running it. Do not move an already published tag to a different commit; publish a new patch version instead.

@@ -54,5 +54,5 @@ jobs:
       - name: Compile against latest stable Paper API
         run: >-
           ./gradlew clean compileJava
-          -PpaperApiDependency=io.papermc.paper:paper-api:26.2.build.119-stable
+          -PpaperApiDependency=io.papermc.paper:paper-api:26.3.build.240-stable
           -PbytecodeVersion=25

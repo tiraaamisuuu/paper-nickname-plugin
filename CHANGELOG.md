@@ -4,6 +4,13 @@ Notable changes to NameMask are documented here. This project follows [Semantic 
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-04
+
+### Changed
+
+- Added and verified compatibility with Paper 26.3 build 240.
+- Updated the latest-Paper CI compatibility check from Paper 26.2 to 26.3.
+
 ## [1.1.0] - 2026-08-25
 
 ### Changed
@@ -29,7 +36,8 @@ Notable changes to NameMask are documented here. This project follows [Semantic 
 - Added UUID-based nickname persistence and automatic re-application on join.
 - Added nickname validation and collision checks.
 
-[Unreleased]: https://github.com/tiraaamisuuu/paper-nickname-plugin/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/tiraaamisuuu/paper-nickname-plugin/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/tiraaamisuuu/paper-nickname-plugin/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/tiraaamisuuu/paper-nickname-plugin/compare/v1.0.1-alpha.1...v1.1.0
 [1.0.1-alpha.1]: https://github.com/tiraaamisuuu/paper-nickname-plugin/compare/V1.0.0...v1.0.1-alpha.1
 [1.0.0]: https://github.com/tiraaamisuuu/paper-nickname-plugin/releases/tag/V1.0.0

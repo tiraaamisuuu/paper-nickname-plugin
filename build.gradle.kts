@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "dev.alfiecorthine"
-val pluginVersion = providers.gradleProperty("pluginVersion").getOrElse("1.1.0-SNAPSHOT")
+val pluginVersion = providers.gradleProperty("pluginVersion").getOrElse("1.2.0-SNAPSHOT")
 version = pluginVersion
 
 val paperApiDependency = providers.gradleProperty("paperApiDependency")
